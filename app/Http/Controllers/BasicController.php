@@ -89,6 +89,7 @@ class BasicController extends Controller
      */
     public function update(EditUserRequest $request, User $basic)
     {
+        // return var_dump($basic);
         if($request->filled('password')) {
             $basic->password = Hash::make($request->password);
         }

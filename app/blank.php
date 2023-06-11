@@ -10,8 +10,9 @@ class blank extends Model
     use HasFactory;
     protected $table = "blank";
     public $timestamps = false;
+    // protected $primaryKey = 'id';
     protected $fillable = [
-        'Id_sekolah',
+        'nomor_sekolah',
         'sekolah',
         'tahun',
     ];

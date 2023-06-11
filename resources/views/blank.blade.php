@@ -37,12 +37,17 @@
                     @forelse($blank as $b)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $b->Id_sekolah }}</td>
+                        <td>{{ $b->nomor_sekolah }}</td>
                         <td>{{ $b->sekolah }}</td>
                         <td>{{ $b->tahun }}</td>
                         <td>
-                            <a href='{{ route('blank.edit', $b->Id_sekolah) }}' class="btn btn-warning btn-sm">Edit</a>
-                            <a href='{{ route('blank.destroy', $b->Id_sekolah) }}' class="btn btn-danger btn-sm">Del</a>
+                            <a href='{{ route('blank.edit', $b->id) }}' class="btn btn-warning btn-sm">Edit</a>
+                            {{-- <a href='{{ route('blank.destroy', $b->id) }}' class="btn btn-danger btn-sm">Del</a> --}}
+                            <form action="{{ route('blank.destroy', $b->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure to delete this?')">Del</button>
+                            </form>
                         </td>
                     </tr>
                     @empty

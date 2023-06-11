@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\blank;
+use App\Http\Requests\EditBlankScreen;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class BlankController extends Controller
 {
@@ -15,7 +15,7 @@ class BlankController extends Controller
     {
         $blank = blank::get();
 
-        return view('blank', ['blank' => $blank]);
+        return view('blank', compact('blank'));
     }
 
     /**
@@ -35,7 +35,7 @@ class BlankController extends Controller
         //     'Id_sekolah'=> 'required|numeric|unique:blank'
         // ]);
         blank::create([
-            'Id_sekolah' => $request->id_sekolah,
+            'nomor_sekolah' => $request->nomor_sekolah,
             'sekolah' => $request->sekolah,
             'tahun' => $request->tahun,
 
@@ -55,42 +55,33 @@ class BlankController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(blank $blank)
     {
-        $data = blank::where('Id_sekolah', $id) ->first();
-        return view('edit')->with('data', $data);
+        return view('edit', compact('blank'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(EditBlankScreen $request, blank $blank)
     {
-        $request->validate([
-            'Id_sekolah' => 'required|string|max:255',
-            'sekolah' => 'nullable|string|max:255',
-            'tahun' => 'required|string|max:255' .$id,
+            // return var_dump($blank);
+            $blank->nomor_sekolah = $request->nomor_sekolah;
+            $blank->sekolah = $request->sekolah;
+            $blank->tahun = $request->tahun;
+            $blank->save();
 
-        ]);
+            return redirect()->route('blank.index')->with('message', 'Blank updated successfully!');
 
-
-       if ($request->isMethod('post')) {
-             $editAdmin  =$request->all();
-
-
-             blank::where(['id'=>$id])->update(['Id_sekolah'=>$editAdmin['Id_sekolah'],
-             'sekolah'=>$editAdmin['sekolah'],'tahun'=>$editAdmin['tahun'],]);
-
-             return redirect()->back()->with('flash_message_success','Data berhasil diubah ');
-
-         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(blank $blank)
     {
-        //
+        $blank->delete();
+
+        return redirect()->route('blank.index')->with('message', 'Data blank berhasil dihapus!');
     }
 }

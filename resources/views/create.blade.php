@@ -13,7 +13,7 @@
         <div class="mb-3 row">
             <label for="Id_sekolah" class="col-sm-2 col-form-label">ID Sekolah</label>
             <div class="col-sm-10">
-                <input type="number" class="form-control" name='id_sekolah' id="id_sekolah">
+                <input type="number" class="form-control" name='nomor_sekolah' id="nomor_sekolah">
             </div>
         </div>
         <div class="mb-3 row">
