@@ -52,7 +52,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center">Tidak Ada ada hehehe...</td>
+                        <td colspan="5" class="text-center">Tidak Ada Data wle..</td>
                     </tr>
                     @endforelse
                 </tbody>
